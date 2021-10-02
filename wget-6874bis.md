@@ -95,7 +95,7 @@ Overwrite */src/host.c* with my version. Then it should be as simple as:
 
 I read the manual, but it didn't tell me that I needed to reboot Linux for that "install" to take effect.
 
-Note some idefs that must be set (they were set by default on my system):
+Note some ifdefs that must be set (they were set by default on my system):
 
 ~~~~
    ENABLE_IPV6
