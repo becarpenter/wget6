@@ -1,7 +1,7 @@
 # Notes on making *wget* implement RFC6874bis
 
 ## The Patch
-These notes assume you have read [draft-carpenter-6man-rfc6874bis](https://datatracker.ietf.org/doc/draft-carpenter-6man-rfc6874bis/). It describes how the **wget** utility has been made to support zone identifiers (interface names) in IPv6 literal addresses.
+These notes assume you have read [draft-ietf-6man-rfc6874bis](https://datatracker.ietf.org/doc/draft-ietf-6man-rfc6874bis/). It describes how the **wget** utility has been made to support zone identifiers (interface names) in IPv6 literal addresses.
 
 Firstly, this has only been done for Linux. I don't know how to build *wget* for Windows, and since relevant parts of the socket API are different for Windows, there might be more code to change.
 
