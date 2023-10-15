@@ -22,6 +22,15 @@ One peculiarity of *wget* is the module *url.c*, which uses the functions provid
 
 Bottom line: patched *wget* works for both *[fe80::abcd%eth0]* and *[fe80::abcd%25eth0]*
 
+## Extra credit
+
+The variant file host-expt.c includes additional patches to allow the user to supply
+a modified address with "-" instead of "%", e.g. *[fe80::abcd-eth0]*. If the IETF
+decided to evade the difficulties of parsing the "%", this would be the alternative.
+
+It's a bit of a hack as I didn't want to dig into any other part of wget except
+the host.c module. But it works, see the tail end of the examples.
+
 ## Examples
 
 Here are several examples of how it works. The link-local address used is that of my home gateway, which includes a web server for management actions.
@@ -81,6 +90,18 @@ $ wget http://[fe80::3e2a:fdff:fea4:dde7%]
 Connecting to fe80::3e2a:fdff:fea4:dde7%|fe80::3e2a:fdff:fea4:dde7|:80... failed: Invalid argument.
 ~~~~
 
+Now with the "-" patch too:
+
+~~~
+brian@brian-HP-14:~$ wget http://[fe80::2e3a:fdff:fea4:dde7-wlp2s0]
+--2023-10-16 09:00:13--  http://[fe80::2e3a:fdff:fea4:dde7-wlp2s0]/
+Connecting to fe80::2e3a:fdff:fea4:dde7-wlp2s0 (fe80::2e3a:fdff:fea4:dde7-wlp2s0)|fe80::2e3a:fdff:fea4:dde7|:80... connected.
+HTTP request sent, awaiting response... Read error (Connection reset by peer) in headers.
+Retrying.
+~~~
+
+(The home gateway software has been updated since two years ago, so it responds a bit differently now.)
+
 ## Implementation notes:
 
 On Linux you need to download the latest *wget* tarball (*wget-latest.tar.gz*). Expand it and cd to the *wget-1.21.2* (or similar) directory. 
@@ -103,3 +124,5 @@ Note some ifdefs that must be set (they were set by default on my system):
    HAVE_SOCKADDR_IN6_SCOPE_ID
 ~~~~
 The last one is critical, of course.
+
+Also, the "-" patch won't work if `HAVE_LIBCARES` is set.
