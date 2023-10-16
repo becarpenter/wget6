@@ -9,7 +9,7 @@ to support draft-carpenter-6man-rfc6874bis. A couple of statements
 were added to is_valid_ipv6_address() as well as some beautification
 of the code. This patch also conforms to RFC6874.
 
-This version was further patched by Brian E Carpenter on 2023-10-16
+This version was further patched by Brian E Carpenter on 2023-10-17
 to support a "-" sign as an alternative to "%" to delimit a 
 link-local IPv6 Zone ID. This is done as an inelegant hack,
 and won't work with ifdef HAVE_LIBCARES (i.e., the c-ares library)
@@ -945,6 +945,7 @@ lookup_host (const char *host, int flags)
               /* logprintf (LOG_VERBOSE, _ ("updated zhost.\n")); */
             }
           err = getaddrinfo_with_timeout (zhost, NULL, &hints, &res, timeout);
+          free(zhost);
         }
       else
         {

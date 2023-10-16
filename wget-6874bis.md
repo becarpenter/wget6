@@ -111,7 +111,7 @@ Overwrite */src/host.c* with my version. Then it should be as simple as:
 ~~~~
    ./configure
    make
-   make install
+   sudo make install
 ~~~~
 
 I read the manual, but it didn't tell me that I needed to reboot Linux for that "install" to take effect.
